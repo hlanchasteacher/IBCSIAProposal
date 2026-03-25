@@ -56,7 +56,6 @@ h1 span { color: var(--accent); }
 .progress-meta { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 10px; }
 .progress-bar { height: 3px; background: var(--border); border-radius: 99px; overflow: visible; position: relative; }
 .progress-fill { height: 100%; background: var(--accent); border-radius: 99px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 0 12px var(--accent); position: relative; }
-.progress-fill::after { content: ''; position: absolute; right: -4px; top: -4px; width: 11px; height: 11px; background: var(--accent); border-radius: 50%; border: 2px solid var(--bg); box-shadow: 0 0 8px var(--accent); }
 
 /* STEPS NAV */
 .steps-nav { display: flex; gap: 6px; margin-bottom: 32px; flex-wrap: wrap; animation: fadeUp 0.6s 0.15s ease both; }
@@ -68,62 +67,66 @@ h1 span { color: var(--accent); }
 
 /* STEP PANELS */
 .step-panel { display: none; }
-.step-panel.active { display: block; animation: fadeUp 0.4s ease both; }
+.step-panel.active { display: block; animation: fadeUp(0.4s) ease both; }
 
-/* CARD */
+/* CARDS & BOXES */
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px 32px; margin-bottom: 16px; position: relative; overflow: hidden; }
 .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), transparent); opacity: 0.6; }
 .step-num { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.14em; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
 .card h2 { font-family: 'Syne', sans-serif; font-size: 21px; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.2; }
 .card-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
 
-/* GUIDE BOX */
 .guide-box { background: rgba(79,255,176,0.04); border: 1px solid rgba(79,255,176,0.18); border-radius: 12px; padding: 20px 22px; margin: 16px 0; font-size: 13.5px; line-height: 1.75; color: #d0f5e8; }
 .guide-box-header { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.14em; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
 .guide-box-header::before { content: ''; display: inline-block; width: 14px; height: 1px; background: var(--accent); }
 
-/* RUBRIC TABLE */
+.forbidden-box { background: rgba(255,107,107,0.05); border: 1px solid rgba(255,107,107,0.2); border-radius: 12px; padding: 18px 20px; margin: 16px 0; }
+.forbidden-box-header { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--accent2); text-transform: uppercase; margin-bottom: 10px; }
+
 .rubric-table { width: 100%; border-collapse: collapse; margin: 12px 0 4px; font-size: 13px; }
-.rubric-table th { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--accent); text-transform: uppercase; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
-.rubric-table td { padding: 10px 12px; border-bottom: 1px solid rgba(42,47,66,0.6); vertical-align: top; color: #cdd0de; line-height: 1.5; }
+.rubric-table th { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); text-transform: uppercase; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+.rubric-table td { padding: 10px 12px; border-bottom: 1px solid rgba(42,47,66,0.6); color: #cdd0de; }
+.mc { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--accent3); text-align: center; }
 
 /* QUIZ */
 .quiz-section { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; margin: 16px 0; }
-.quiz-section-header { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--accent3); text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-.quiz-section-header::before { content: ''; display: inline-block; width: 14px; height: 1px; background: var(--accent3); }
-.quiz-q { margin-bottom: 22px; }
-.quiz-options { display: flex; flex-direction: column; gap: 7px; }
-.quiz-option { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: all 0.18s; font-size: 13.5px; color: #bcc0d0; line-height: 1.45; user-select: none; background: rgba(255,255,255,0.02); }
-.quiz-option:hover { border-color: rgba(79,255,176,0.3); color: var(--text); background: rgba(79,255,176,0.04); }
+.quiz-q-text { font-size: 14px; font-weight: 400; color: var(--text); margin-bottom: 10px; line-height: 1.55; }
+.quiz-options { display: flex; flex-direction: column; gap: 7px; margin-bottom: 20px;}
+.quiz-option { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: all 0.18s; font-size: 13.5px; color: #bcc0d0; background: rgba(255,255,255,0.02); }
 .quiz-option.selected-correct { border-color: var(--good); background: rgba(79,255,176,0.08); color: #d0f5e8; }
 .quiz-option.selected-wrong { border-color: var(--warn); background: rgba(255,107,107,0.08); color: #ffc4c4; }
-.quiz-option.reveal-correct { border-color: rgba(79,255,176,0.4); background: rgba(79,255,176,0.04); color: #d0f5e8; }
-.quiz-feedback { margin-top: 8px; padding: 10px 14px; border-radius: 8px; font-size: 13px; line-height: 1.6; display: none; }
+.quiz-option.reveal-correct { border-color: var(--good); opacity: 0.8; }
+.quiz-feedback { margin-top: 8px; padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
 .quiz-feedback.correct { background: rgba(79,255,176,0.06); border: 1px solid rgba(79,255,176,0.15); color: #c8f7e4; display: block; }
 .quiz-feedback.wrong { background: rgba(255,107,107,0.06); border: 1px solid rgba(255,107,107,0.18); color: #ffc4c4; display: block; }
-.quiz-score-bar { display: none; align-items: center; gap: 12px; padding: 12px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin-top: 16px; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); }
-.quiz-score-bar.show { display: flex; animation: fadeUp 0.3s ease both; }
 
 /* INPUTS */
-textarea, input[type="text"] { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.65; resize: vertical; transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
-textarea:focus, input[type="text"]:focus { border-color: rgba(79,255,176,0.4); box-shadow: 0 0 0 3px rgba(79,255,176,0.06); }
+textarea, input[type="text"] { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; margin-bottom: 4px; }
+textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .field-label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 8px; margin-top: 18px; }
-.char-count { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-align: right; margin-top: 6px; }
+.char-count { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-align: right; margin-bottom: 10px; }
 
-/* CHIPS */
-.chip-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
-.chip { font-family: 'DM Mono', monospace; font-size: 11px; padding: 6px 14px; border: 1px solid var(--border); border-radius: 99px; color: var(--muted); cursor: pointer; transition: all 0.2s; user-select: none; }
-.chip.selected { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 700; }
+/* CHECKER RESULTS */
+.checker-result { margin-top: 5px; padding: 11px 14px; border-radius: 8px; font-size: 12.5px; font-family: 'DM Mono', monospace; display: none; margin-bottom: 15px; }
+.checker-result.show { display: block; animation: fadeUp 0.2s ease both; }
+.checker-result.flag { background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.2); color: #ffc4c4; }
+.checker-result.ok { background: rgba(79,255,176,0.06); border: 1px solid rgba(79,255,176,0.15); color: #c8f7e4; }
+.checker-result.tip { background: rgba(255,209,102,0.06); border: 1px solid rgba(255,209,102,0.2); color: #ffe4a0; }
 
 /* BUTTONS */
 .btn-row { display: flex; gap: 12px; margin-top: 24px; justify-content: flex-end; }
-button { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; padding: 12px 28px; border-radius: 10px; border: none; cursor: pointer; transition: all 0.2s; }
+button { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; padding: 12px 28px; border-radius: 10px; cursor: pointer; transition: 0.2s; border: none; }
 .btn-primary { background: var(--accent); color: #000; }
-.btn-primary:disabled { opacity: 0.2; cursor: not-allowed; }
+.btn-primary:disabled { opacity: 0.15; cursor: not-allowed; }
 .btn-secondary { background: transparent; color: var(--muted); border: 1px solid var(--border); }
 
+/* CHIPS */
+.chip-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; margin-bottom: 20px; }
+.chip { font-family: 'DM Mono', monospace; font-size: 11px; padding: 6px 14px; border: 1px solid var(--border); border-radius: 99px; color: var(--muted); cursor: pointer; }
+.chip.selected { background: var(--accent); color: #000; border-color: var(--accent); }
+
 /* PROPOSAL OUTPUT */
-.proposal-output { background: var(--surface); border: 1px solid var(--accent); border-radius: 16px; padding: 32px; margin-top: 20px; animation: fadeUp 0.5s ease both; }
+.proposal-output { background: var(--surface); border: 1px solid var(--accent); border-radius: 16px; padding: 32px; margin-top: 20px; }
 .proposal-section { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
 .proposal-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; margin-bottom: 7px; }
 
@@ -134,8 +137,9 @@ button { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; pad
 <div class="app">
 
 <div class="header">
-  <div class="header-tag">IB Computer Science · Internal Assessment</div>
-  <h1>My IA<br><span>Proposal</span></h1>
+  <div class="header-tag">IB Computer Science · IA Proposal Tool</div>
+  <h1>Write Your<br><span>Proposal</span></h1>
+  <p class="header-sub">Follow the guide for each section. Validation is active: you must fill all required fields to proceed.</p>
 </div>
 
 <div class="progress-wrap">
@@ -144,227 +148,315 @@ button { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; pad
 </div>
 
 <div class="steps-nav" id="stepsNav">
-  <div class="step-dot active" data-step="0" onclick="navTo(0)">01 · The Task</div>
-  <div class="step-dot locked" data-step="1" onclick="navTo(1)">02 · Problem</div>
-  <div class="step-dot locked" data-step="2" onclick="navTo(2)">03 · Solution</div>
-  <div class="step-dot locked" data-step="3" onclick="navTo(3)">04 · Criteria</div>
+  <div class="step-dot active" data-step="0">01 · Task</div>
+  <div class="step-dot locked" data-step="1">02 · Problem</div>
+  <div class="step-dot locked" data-step="2">03 · Solution</div>
+  <div class="step-dot locked" data-step="3">04 · Criteria</div>
   <div class="step-dot locked" data-step="4" onclick="navTo(4)">05 · Context</div>
   <div class="step-dot locked" data-step="5" onclick="navTo(5)">06 · Planning</div>
-  <div class="step-dot locked" data-step="6" onclick="navTo(6)">07 · Review</div>
+  <div class="step-dot locked" data-step="6">07 · Review</div>
 </div>
 
 <div class="step-panel active" id="step-0">
   <div class="card">
-    <h2>Rules of the Game</h2>
-    <p class="card-desc">Answer the questions to unlock the next phase.</p>
+    <div class="step-num">MANDATORY READING</div>
+    <h2>Internal Assessment Basics</h2>
+    <p class="card-desc">Answer the quiz to unlock the writing sections.</p>
+  </div>
+  <div class="guide-box">
+    The documentation is a single PDF, max <strong>2,000 words</strong>. Criterion D (Development) is worth <strong>12 marks</strong> out of 30. Your teacher can only give feedback on <strong>one draft</strong>.
   </div>
   <div class="quiz-section">
     <div class="quiz-q" id="qq0">
-      <p class="quiz-q-text">1. Max word count for documentation?</p>
+      <p class="quiz-q-text">1. What is the word limit for the documentation (excluding code)?</p>
       <div class="quiz-options">
-        <div class="quiz-option" onclick="answer(0,0,false)">1,000</div>
-        <div class="quiz-option" onclick="answer(0,1,true)">2,000</div>
+        <div class="quiz-option" onclick="answer(0,0,false)">1,000 words</div>
+        <div class="quiz-option" onclick="answer(0,1,true)">2,000 words</div>
       </div>
       <div class="quiz-feedback" id="qf0"></div>
     </div>
     <div class="quiz-q" id="qq1">
-      <p class="quiz-q-text">2. Teacher feedback policy?</p>
+      <p class="quiz-q-text">2. How many marks is Criterion D (the code/development) worth?</p>
       <div class="quiz-options">
-        <div class="quiz-option" onclick="answer(1,0,false)">Infinite edits</div>
-        <div class="quiz-option" onclick="answer(1,1,true)">One draft only</div>
+        <div class="quiz-option" onclick="answer(1,0,false)">4 marks</div>
+        <div class="quiz-option" onclick="answer(1,1,true)">12 marks</div>
       </div>
       <div class="quiz-feedback" id="qf1"></div>
     </div>
   </div>
   <div class="btn-row">
-    <button class="btn-primary" id="next-0" onclick="goTo(1)" disabled>Unlock Step 2 →</button>
+    <button class="btn-primary" id="next-0" onclick="goTo(1)" disabled>Unlock Writing Step →</button>
   </div>
 </div>
 
-<div id="step-1" class="step-panel">
+<div class="step-panel" id="step-1">
   <div class="card">
-    <h2>1. The Problem</h2>
-    <input type="text" id="studentName" placeholder="Enter Your Full Name" oninput="validateStep1()">
-    <label class="field-label">Problem Scenario (Explain the real-world issue):</label>
-    <textarea id="problem" rows="5" placeholder="Minimum 50 characters required..." oninput="validateStep1()"></textarea>
-    <label class="field-label">Client / Stakeholder Name:</label>
-    <input type="text" id="client" placeholder="Who are you building this for?" oninput="validateStep1()">
+    <div class="step-num">CRITERION A · PROBLEM</div>
+    <h2>Who & What?</h2>
+    <input type="text" id="studentName" placeholder="STUDENT NAME (Required)" oninput="validateStep1()">
+    <label class="field-label">Problem Scenario (Min 100 characters):</label>
+    <textarea id="problem" rows="6" placeholder="Describe the real-world problem and who it affects..." oninput="validateStep1(); checkProblem()"></textarea>
+    <div class="char-count" id="problem-count">0 chars</div>
+    <div class="checker-result" id="problem-checker"></div>
+    
+    <label class="field-label">Client / Stakeholder:</label>
+    <input type="text" id="client" placeholder="e.g. Mr. Smith (Physics Teacher)" oninput="validateStep1()">
   </div>
   <div class="btn-row">
-    <button class="btn-primary" id="next-1" onclick="goTo(2)" disabled>Fill all fields to continue →</button>
+    <button class="btn-secondary" onclick="goTo(0)">← Back</button>
+    <button class="btn-primary" id="next-1" onclick="goTo(2)" disabled>Fill all fields to proceed →</button>
   </div>
 </div>
 
-<div id="step-2" class="step-panel">
+<div class="step-panel" id="step-2">
   <div class="card">
-    <h2>2. Proposed Solution</h2>
-    <textarea id="solution" rows="5" placeholder="What will your code actually do? (Min 40 chars)" oninput="validateStep2()"></textarea>
+    <h2>Proposed Solution</h2>
+    <p class="card-desc">Describe your computational approach. No Wix/Squarespace allowed.</p>
+  </div>
+  <div class="forbidden-box">
+    <div class="forbidden-box-header">🚫 FORBIDDEN</div>
+    Templates, no-code builders (Wix/Webflow), or code copied without significant modification.
+  </div>
+  <div class="card">
+    <label class="field-label">The Solution (Min 100 characters):</label>
+    <textarea id="solution" rows="6" placeholder="What will you build? Mention tech stack..." oninput="validateStep2(); checkSolution()"></textarea>
+    <div class="char-count" id="solution-count">0 chars</div>
+    <div class="checker-result" id="solution-checker"></div>
   </div>
   <div class="btn-row">
-    <button class="btn-primary" id="next-2" onclick="goTo(3)" disabled>Fill solution to continue →</button>
+    <button class="btn-secondary" onclick="goTo(1)">← Back</button>
+    <button class="btn-primary" id="next-2" onclick="goTo(3)" disabled>Fill solution to proceed →</button>
   </div>
 </div>
 
-<div id="step-3" class="step-panel">
+<div class="step-panel" id="step-3">
   <div class="card">
-    <h2>3. Success Criteria</h2>
-    <p class="card-desc">Enter at least 3 measurable criteria.</p>
-    <div class="criteria-list" id="criteriaList">
-      <input type="text" class="sc-input" placeholder="Criteria 1 (Required)" oninput="validateStep3()">
-      <input type="text" class="sc-input" placeholder="Criteria 2 (Required)" oninput="validateStep3()">
-      <input type="text" class="sc-input" placeholder="Criteria 3 (Required)" oninput="validateStep3()">
-      <input type="text" class="sc-input" placeholder="Criteria 4 (Optional)">
+    <h2>Success Criteria</h2>
+    <p class="card-desc">Must be measurable. "Easy to use" is NOT measurable.</p>
+    <div class="guide-box">Example: "The system generates a PDF report within 5 seconds of clicking Export."</div>
+    <div id="criteriaList">
+      <input type="text" class="sc-input" placeholder="SC 1 (Required)" oninput="validateStep3()">
+      <input type="text" class="sc-input" placeholder="SC 2 (Required)" oninput="validateStep3()">
+      <input type="text" class="sc-input" placeholder="SC 3 (Required)" oninput="validateStep3()">
+      <input type="text" class="sc-input" placeholder="SC 4 (Optional)">
+      <input type="text" class="sc-input" placeholder="SC 5 (Optional)">
     </div>
   </div>
   <div class="btn-row">
-    <button class="btn-primary" id="next-3" onclick="goTo(4)" disabled>Add 3 criteria to continue →</button>
+    <button class="btn-secondary" onclick="goTo(2)">← Back</button>
+    <button class="btn-primary" id="next-3" onclick="goTo(4)" disabled>Add 3 criteria to proceed →</button>
   </div>
 </div>
 
-<div id="step-4" class="step-panel">
+<div class="step-panel" id="step-4">
   <div class="card">
-    <h2>4. Computational Context</h2>
+    <h2>Computational Context</h2>
+    <label class="field-label">Select Area(s):</label>
     <div class="chip-group">
-      <div class="chip" onclick="toggleChip(this); validateStep4()">OOP</div>
-      <div class="chip" onclick="toggleChip(this); validateStep4()">Databases</div>
-      <div class="chip" onclick="toggleChip(this); validateStep4()">Web Apps</div>
-      <div class="chip" onclick="toggleChip(this); validateStep4()">Algorithms</div>
+      <div class="chip" onclick="toggleChip(this)">OOP</div>
+      <div class="chip" onclick="toggleChip(this)">Relational Databases</div>
+      <div class="chip" onclick="toggleChip(this)">Web Applications</div>
+      <div class="chip" onclick="toggleChip(this)">Algorithms</div>
+      <div class="chip" onclick="toggleChip(this)">API Integration</div>
     </div>
-    <textarea id="contextReason" rows="4" placeholder="Why is this tech right for the problem? (Min 40 chars)" oninput="validateStep4()"></textarea>
+    <label class="field-label">Explain why this context fits (Min 80 characters):</label>
+    <textarea id="contextReason" rows="5" oninput="validateStep4()"></textarea>
   </div>
   <div class="btn-row">
-    <button class="btn-primary" id="next-4" onclick="goTo(5)" disabled>Explain context to continue →</button>
+    <button class="btn-secondary" onclick="goTo(3)">← Back</button>
+    <button class="btn-primary" id="next-4" onclick="goTo(5)" disabled>Explain context to proceed →</button>
   </div>
 </div>
 
-<div id="step-5" class="step-panel">
+<div class="step-panel" id="step-5">
   <div class="card">
-    <h2>5. Planning & Timeline</h2>
-    <textarea id="decomposition" rows="4" placeholder="Break down the modules..." oninput="validateStep5()"></textarea>
-    <textarea id="timeline" rows="4" placeholder="Projected timeline..." oninput="validateStep5()"></textarea>
+    <h2>Planning & Timeline</h2>
+    <label class="field-label">Component Decomposition:</label>
+    <textarea id="decomposition" rows="4" placeholder="Modules/Classes..." oninput="validateStep5()"></textarea>
+    <label class="field-label">Timeline:</label>
+    <textarea id="timeline" rows="4" placeholder="Week 1: Design..." oninput="validateStep5()"></textarea>
   </div>
   <div class="btn-row">
-    <button class="btn-primary" id="next-5" onclick="buildProposal()" disabled>Review Proposal →</button>
+    <button class="btn-secondary" onclick="goTo(4)">← Back</button>
+    <button class="btn-primary" id="next-5" onclick="buildProposal()" disabled>Generate Review →</button>
   </div>
 </div>
 
-<div id="step-6" class="step-panel">
-  <div class="card"><h2>Final Review</h2><p id="reviewName" style="color:var(--accent)"></p></div>
+<div class="step-panel" id="step-6">
+  <div class="card">
+    <h2>Final Proposal Review</h2>
+    <p id="reviewName" style="color:var(--accent); font-weight: bold;"></p>
+  </div>
   <div class="proposal-output" id="proposalOutput"></div>
   <div class="btn-row">
-    <button class="btn-primary" id="submitBtn" onclick="submitToTeacher()">🚀 Submit to Teacher</button>
+    <button class="btn-secondary" onclick="goTo(5)">← Edit</button>
+    <button class="btn-primary" id="submitBtn" onclick="submitToTeacher()">🚀 Submit to Teacher's Spreadsheet</button>
   </div>
 </div>
 
 </div>
 
 <script>
+// --- STATE & NAVIGATION ---
 let currentStep = 0;
 const unlocked = new Set([0]);
-const selectedChips = new Set();
 const answered = {};
-
-function answer(qId, optIdx, isCorrect) {
-  answered[qId] = isCorrect;
-  const qEl = document.getElementById('qq' + qId);
-  qEl.querySelectorAll('.quiz-option').forEach(o => o.style.pointerEvents = 'none');
-  if (Object.keys(answered).length >= 2) document.getElementById('next-0').disabled = false;
-}
-
-function validateStep1() {
-  const name = document.getElementById('studentName').value.trim();
-  const prob = document.getElementById('problem').value.trim();
-  const cli = document.getElementById('client').value.trim();
-  document.getElementById('next-1').disabled = !(name.length > 2 && prob.length > 49 && cli.length > 2);
-}
-
-function validateStep2() {
-  const sol = document.getElementById('solution').value.trim();
-  document.getElementById('next-2').disabled = (sol.length < 40);
-}
-
-function validateStep3() {
-  const filled = Array.from(document.querySelectorAll('.sc-input')).filter(i => i.value.trim().length > 10).length;
-  document.getElementById('next-3').disabled = (filled < 3);
-}
-
-function validateStep4() {
-  const reason = document.getElementById('contextReason').value.trim();
-  document.getElementById('next-4').disabled = (reason.length < 40 || selectedChips.size === 0);
-}
-
-function validateStep5() {
-  const dec = document.getElementById('decomposition').value.trim();
-  const time = document.getElementById('timeline').value.trim();
-  document.getElementById('next-5').disabled = (dec.length < 20 || time.length < 20);
-}
-
-function toggleChip(el) {
-  el.classList.toggle('selected');
-  if (el.classList.contains('selected')) selectedChips.add(el.textContent);
-  else selectedChips.delete(el.textContent);
-}
+const selectedChips = new Set();
 
 function goTo(step) {
   unlocked.add(step);
   document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
   document.getElementById('step-' + step).classList.add('active');
   currentStep = step;
-  updateNav();
+  updateUI();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function navTo(step) { if (unlocked.has(step)) goTo(step); }
 
-function updateNav() {
+function updateUI() {
+  // Nav dots
   document.querySelectorAll('.step-dot').forEach((d, i) => {
     d.className = 'step-dot';
     if (i === currentStep) d.classList.add('active');
     else if (unlocked.has(i)) d.classList.add('done');
     else d.classList.add('locked');
   });
+  // Progress bar
   const pct = Math.round((currentStep / 6) * 100);
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressLabel').textContent = `STEP ${currentStep + 1} OF 7`;
 }
 
+// --- QUIZ LOGIC ---
+function answer(qId, optIdx, isCorrect) {
+  if (answered[qId] !== undefined) return;
+  answered[qId] = isCorrect;
+  const qEl = document.getElementById('qq' + qId);
+  const opts = qEl.querySelectorAll('.quiz-option');
+  opts.forEach((o, i) => {
+    o.style.pointerEvents = 'none';
+    if (i === (qId === 0 ? 1 : 1)) o.classList.add('reveal-correct');
+  });
+  opts[optIdx].classList.add(isCorrect ? 'selected-correct' : 'selected-wrong');
+  document.getElementById('qf' + qId).style.display = 'block';
+  document.getElementById('qf' + qId).textContent = isCorrect ? "Correct!" : "Incorrect.";
+  document.getElementById('qf' + qId).className = 'quiz-feedback ' + (isCorrect ? 'correct' : 'wrong');
+  
+  if (Object.keys(answered).length >= 2) document.getElementById('next-0').disabled = false;
+}
+
+// --- LIVE CHECKERS ---
+function checkProblem() {
+  const val = document.getElementById('problem').value;
+  document.getElementById('problem-count').textContent = val.length + " chars";
+  const checker = document.getElementById('problem-checker');
+  if (val.length > 10 && val.length < 50) {
+    checker.className = 'checker-result tip show';
+    checker.textContent = "💡 Keep writing. Describe the user and the pain points.";
+  } else if (val.length >= 100) {
+    checker.className = 'checker-result ok show';
+    checker.textContent = "✓ Length looks good.";
+  } else { checker.className = 'checker-result'; }
+}
+
+function checkSolution() {
+  const val = document.getElementById('solution').value;
+  document.getElementById('solution-count').textContent = val.length + " chars";
+  const checker = document.getElementById('solution-checker');
+  const lower = val.toLowerCase();
+  if (lower.includes("wix") || lower.includes("squarespace")) {
+    checker.className = 'checker-result flag show';
+    checker.textContent = "⚠️ Warning: Templates are forbidden.";
+  } else if (val.length > 100) {
+    checker.className = 'checker-result ok show';
+    checker.textContent = "✓ Computational detail detected.";
+  } else { checker.className = 'checker-result'; }
+}
+
+// --- VALIDATION GATES ---
+function validateStep1() {
+  const name = document.getElementById('studentName').value.trim();
+  const prob = document.getElementById('problem').value.trim();
+  const cli = document.getElementById('client').value.trim();
+  document.getElementById('next-1').disabled = !(name.length > 3 && prob.length > 99 && cli.length > 2);
+}
+
+function validateStep2() {
+  const sol = document.getElementById('solution').value.trim();
+  document.getElementById('next-2').disabled = (sol.length < 100);
+}
+
+function validateStep3() {
+  const filled = Array.from(document.querySelectorAll('.sc-input')).filter(i => i.value.trim().length > 15).length;
+  document.getElementById('next-3').disabled = (filled < 3);
+}
+
+function validateStep4() {
+  const reason = document.getElementById('contextReason').value.trim();
+  document.getElementById('next-4').disabled = (reason.length < 80 || selectedChips.size === 0);
+}
+
+function validateStep5() {
+  const dec = document.getElementById('decomposition').value.trim();
+  const time = document.getElementById('timeline').value.trim();
+  document.getElementById('next-5').disabled = (dec.length < 30 || time.length < 30);
+}
+
+function toggleChip(el) {
+  el.classList.toggle('selected');
+  if (el.classList.contains('selected')) selectedChips.add(el.textContent);
+  else selectedChips.delete(el.textContent);
+  validateStep4();
+}
+
+// --- FINAL ACTIONS ---
 function buildProposal() {
   const name = document.getElementById('studentName').value;
-  document.getElementById('reviewName').textContent = "Author: " + name;
-  const sc = Array.from(document.querySelectorAll('.sc-input')).map(i => i.value).filter(v => v);
+  document.getElementById('reviewName').textContent = "Prepared by: " + name;
+  const sc = Array.from(document.querySelectorAll('.sc-input')).map(i => i.value).filter(v => v.trim());
   
   document.getElementById('proposalOutput').innerHTML = `
     <div class="proposal-section"><div class="proposal-label">Problem</div>${document.getElementById('problem').value}</div>
+    <div class="proposal-section"><div class="proposal-label">Client</div>${document.getElementById('client').value}</div>
     <div class="proposal-section"><div class="proposal-label">Solution</div>${document.getElementById('solution').value}</div>
-    <div class="proposal-section"><div class="proposal-label">Criteria</div>${sc.join('<br>')}</div>
+    <div class="proposal-section"><div class="proposal-label">Success Criteria</div>${sc.map((c,i)=>`SC${i+1}: ${c}`).join('<br>')}</div>
+    <div class="proposal-section"><div class="proposal-label">Computational Context</div><strong>Areas:</strong> ${Array.from(selectedChips).join(', ')}<br><br>${document.getElementById('contextReason').value}</div>
   `;
   goTo(6);
 }
 
 async function submitToTeacher() {
   const btn = document.getElementById('submitBtn');
-  btn.disabled = true; btn.textContent = 'Sending...';
+  btn.disabled = true; btn.textContent = 'Uploading...';
   
-  const data = {
+  const payload = {
     Student: document.getElementById('studentName').value,
     Problem: document.getElementById('problem').value,
+    Client: document.getElementById('client').value,
     Solution: document.getElementById('solution').value,
     Criteria: Array.from(document.querySelectorAll('.sc-input')).map(i => i.value).join(' | '),
     Context: document.getElementById('contextReason').value,
-    Chips: Array.from(selectedChips).join(', ')
+    TechAreas: Array.from(selectedChips).join(', ')
   };
 
   try {
     const res = await fetch('https://api.sheetmonkey.io/form/7eCkXfuYCoYeRDksudMG7B', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data)
+      body: JSON.stringify(payload)
     });
-    if (res.ok) { 
-      btn.textContent = '✓ Submitted'; 
+    if (res.ok) {
+      btn.textContent = '✓ Submitted to Teacher';
       btn.style.background = 'var(--good)';
-      alert("Submitted successfully!");
+      alert("Success! Your proposal has been sent to the teacher's spreadsheet.");
     }
-  } catch (e) { btn.disabled = false; btn.textContent = 'Error - Try Again'; }
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = 'Retry Submission';
+    alert("Connection error. Try again.");
+  }
 }
 </script>
 </body>
