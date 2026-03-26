@@ -190,6 +190,41 @@ button { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; pad
 .score-sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
 
 @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+/* SAVE BAR */
+.save-bar {
+  position: fixed; bottom: 20px; right: 24px; z-index: 100;
+  display: flex; align-items: center; gap: 10px;
+}
+.save-btn {
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.08em; padding: 9px 18px; border-radius: 99px;
+  border: 1px solid rgba(79,255,176,0.35); background: rgba(13,15,20,0.92);
+  color: var(--accent); cursor: pointer; transition: all 0.2s;
+  backdrop-filter: blur(8px); box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  display: flex; align-items: center; gap: 7px;
+}
+.save-btn:hover { background: rgba(79,255,176,0.1); border-color: var(--accent); box-shadow: 0 0 20px rgba(79,255,176,0.15); }
+.save-btn.saving { opacity: 0.7; pointer-events: none; }
+.save-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.save-dot.pulse { animation: savePulse 1.2s ease infinite; }
+@keyframes savePulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
+.save-toast {
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em;
+  color: var(--muted); padding: 7px 14px; background: rgba(13,15,20,0.88);
+  border: 1px solid var(--border); border-radius: 99px; backdrop-filter: blur(8px);
+  opacity: 0; transition: opacity 0.3s; pointer-events: none;
+}
+.save-toast.show { opacity: 1; }
+.save-toast.ok { color: var(--good); border-color: rgba(79,255,176,0.25); }
+.save-toast.restored { color: var(--accent3); border-color: rgba(255,209,102,0.25); }
+.clear-btn {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em;
+  padding: 7px 13px; border-radius: 99px; border: 1px solid rgba(255,107,107,0.25);
+  background: transparent; color: rgba(255,107,107,0.6); cursor: pointer;
+  transition: all 0.2s; backdrop-filter: blur(8px);
+}
+.clear-btn:hover { color: var(--accent2); border-color: var(--accent2); }
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
@@ -320,9 +355,9 @@ button { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; pad
   <div class="section-divider">Before you continue</div>
   <div class="card">
     <label class="field-label" style="margin-top:0">Your name — so your teacher knows whose proposal this is:</label>
-    <input type="text" id="studentName" placeholder="e.g. Ana García" oninput="checkStep0Fields()">
+    <input type="text" id="studentName" placeholder="e.g. Ana García" oninput="checkStep0Fields();scheduleAutosave()">
     <label class="field-label">Your class / group:</label>
-    <input type="text" id="studentClass" placeholder="e.g. IB DP CS HL — Period 3" oninput="checkStep0Fields()">
+    <input type="text" id="studentClass" placeholder="e.g. IB DP CS HL — Period 3" oninput="checkStep0Fields();scheduleAutosave()">
     <div id="name-status" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:12px;letter-spacing:0.05em;">Enter your name and class to continue.</div>
   </div>
 
@@ -402,9 +437,9 @@ button { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; pad
       <div class="checker-result" id="problem-checker"></div>
 
       <label class="field-label">Client / stakeholder:</label>
-      <input type="text" id="client" placeholder="e.g. Ms García, sports club coordinator" oninput="checkStep1Fields()">
+      <input type="text" id="client" placeholder="e.g. Ms García, sports club coordinator" oninput="checkStep1Fields();scheduleAutosave()">
       <label class="field-label">End user(s):</label>
-      <input type="text" id="users" placeholder="e.g. Club secretary and 80+ student members" oninput="checkStep1Fields()">
+      <input type="text" id="users" placeholder="e.g. Club secretary and 80+ student members" oninput="checkStep1Fields();scheduleAutosave()">
     </div>
   </div>
 
@@ -632,7 +667,7 @@ button { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; pad
       <div class="checker-result" id="context-checker"></div>
 
       <label class="field-label">Language / technology stack:</label>
-      <input type="text" id="techStack" placeholder="e.g. Python 3.11, SQLite, Tkinter" oninput="checkStep4Fields()">
+      <input type="text" id="techStack" placeholder="e.g. Python 3.11, SQLite, Tkinter" oninput="checkStep4Fields();scheduleAutosave()">
     </div>
   </div>
 
@@ -672,10 +707,10 @@ button { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; pad
 
   <div class="card">
     <label class="field-label">List your main components — the essential parts you'll need to build:</label>
-    <textarea id="decomposition" rows="6" placeholder="e.g.&#10;1. Member management — Member class, add/edit/delete, database integration&#10;2. Session logging — Session class, attendance per session, link to members&#10;3. Search/filter — query by name, year, status&#10;4. Reporting — overdue loans list, export as PDF&#10;5. GUI — Tkinter main window, navigation menus, forms" oninput="checkStep5Fields()"></textarea>
+    <textarea id="decomposition" rows="6" placeholder="e.g.&#10;1. Member management — Member class, add/edit/delete, database integration&#10;2. Session logging — Session class, attendance per session, link to members&#10;3. Search/filter — query by name, year, status&#10;4. Reporting — overdue loans list, export as PDF&#10;5. GUI — Tkinter main window, navigation menus, forms" oninput="checkStep5Fields();scheduleAutosave()"></textarea>
 
     <label class="field-label" style="margin-top:18px;">Rough development timeline:</label>
-    <textarea id="timeline" rows="5" placeholder="e.g.&#10;Weeks 1–2: Confirm requirements with client, design system model and database schema&#10;Weeks 3–4: Build Member module and database connection&#10;Weeks 5–6: Build Session and Search modules&#10;Week 7: Build reporting module, GUI integration&#10;Week 8: Integration testing, fix bugs&#10;Week 9: Evaluation, documentation, video recording" oninput="checkStep5Fields()"></textarea>
+    <textarea id="timeline" rows="5" placeholder="e.g.&#10;Weeks 1–2: Confirm requirements with client, design system model and database schema&#10;Weeks 3–4: Build Member module and database connection&#10;Weeks 5–6: Build Session and Search modules&#10;Week 7: Build reporting module, GUI integration&#10;Week 8: Integration testing, fix bugs&#10;Week 9: Evaluation, documentation, video recording" oninput="checkStep5Fields();scheduleAutosave()"></textarea>
     <div id="plan-status" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:12px;letter-spacing:0.05em;">Fill in both fields above to submit your proposal.</div>
   </div>
 
@@ -713,6 +748,16 @@ button { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; pad
 
 </div><!-- end .app -->
 
+<!-- ══════ SAVE BAR ══════ -->
+<div class="save-bar">
+  <span class="save-toast" id="saveToast"></span>
+  <button class="clear-btn" onclick="clearSave()" title="Clear saved progress">✕ Clear</button>
+  <button class="save-btn" id="saveBtn" onclick="saveProgress()">
+    <span class="save-dot" id="saveDot"></span>
+    <span id="saveBtnLabel">Save progress</span>
+  </button>
+</div>
+
 <script>
 // ── State ──────────────────────────────────────────────────────
 let currentStep = 0;
@@ -743,10 +788,169 @@ const GATES = {
 
 const selectedChips = new Set();
 
+// ── Cookie save / restore ──────────────────────────────────────
+const COOKIE_KEY = 'ia_wizard_v1';
+const AUTOSAVE_DELAY = 2000; // ms after last change
+let autosaveTimer = null;
+let isDirty = false;
+
+function setCookie(value) {
+  const exp = new Date();
+  exp.setFullYear(exp.getFullYear() + 1);
+  document.cookie = `${COOKIE_KEY}=${encodeURIComponent(value)};expires=${exp.toUTCString()};path=/;SameSite=Lax`;
+}
+
+function getCookie() {
+  const match = document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith(COOKIE_KEY + '='));
+  return match ? decodeURIComponent(match.slice(COOKIE_KEY.length + 1)) : null;
+}
+
+function deleteCookie() {
+  document.cookie = `${COOKIE_KEY}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;SameSite=Lax`;
+}
+
+function gatherState() {
+  const getVal = id => { const el = document.getElementById(id); return el ? el.value : ''; };
+  const criteria = Array.from(document.querySelectorAll('#criteriaList input')).map(i => i.value);
+  return JSON.stringify({
+    currentStep,
+    unlocked: Array.from(unlocked),
+    answered,
+    chips: Array.from(selectedChips),
+    studentName: getVal('studentName'),
+    studentClass: getVal('studentClass'),
+    problem: getVal('problem'),
+    client: getVal('client'),
+    users: getVal('users'),
+    solution: getVal('solution'),
+    criteria,
+    contextReason: getVal('contextReason'),
+    techStack: getVal('techStack'),
+    decomposition: getVal('decomposition'),
+    timeline: getVal('timeline'),
+  });
+}
+
+function saveProgress(manual = true) {
+  const btn = document.getElementById('saveBtn');
+  const dot = document.getElementById('saveDot');
+  const label = document.getElementById('saveBtnLabel');
+  btn.classList.add('saving');
+  dot.classList.add('pulse');
+  setCookie(gatherState());
+  isDirty = false;
+  setTimeout(() => {
+    btn.classList.remove('saving');
+    dot.classList.remove('pulse');
+    if (manual) showToast('✓ Saved', 'ok');
+    label.textContent = 'Saved ✓';
+    setTimeout(() => { label.textContent = 'Save progress'; }, 2500);
+  }, 350);
+}
+
+function showToast(msg, type = '') {
+  const t = document.getElementById('saveToast');
+  t.textContent = msg;
+  t.className = 'save-toast show' + (type ? ' ' + type : '');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => { t.className = 'save-toast'; }, 2800);
+}
+
+function clearSave() {
+  if (!confirm('Clear your saved progress? This cannot be undone.')) return;
+  deleteCookie();
+  showToast('Progress cleared', '');
+}
+
+function scheduleAutosave() {
+  isDirty = true;
+  clearTimeout(autosaveTimer);
+  autosaveTimer = setTimeout(() => { saveProgress(false); }, AUTOSAVE_DELAY);
+}
+
+function restoreState(raw) {
+  let s;
+  try { s = JSON.parse(raw); } catch(e) { return false; }
+
+  // Restore text fields
+  const setVal = (id, v) => { const el = document.getElementById(id); if (el && v !== undefined) el.value = v; };
+  setVal('studentName', s.studentName);
+  setVal('studentClass', s.studentClass);
+  setVal('problem', s.problem);
+  setVal('client', s.client);
+  setVal('users', s.users);
+  setVal('solution', s.solution);
+  setVal('contextReason', s.contextReason);
+  setVal('techStack', s.techStack);
+  setVal('decomposition', s.decomposition);
+  setVal('timeline', s.timeline);
+
+  // Criteria inputs
+  if (s.criteria) {
+    const inputs = document.querySelectorAll('#criteriaList input');
+    s.criteria.forEach((v, i) => { if (inputs[i]) inputs[i].value = v; });
+  }
+
+  // Chips
+  if (s.chips) {
+    s.chips.forEach(chipText => {
+      selectedChips.add(chipText);
+      document.querySelectorAll('.chip').forEach(el => {
+        if (el.textContent.trim() === chipText) el.classList.add('selected');
+      });
+    });
+  }
+
+  // Quiz answers
+  if (s.answered) {
+    Object.assign(answered, s.answered);
+    Object.keys(s.answered).forEach(qId => {
+      const qIdNum = parseInt(qId);
+      const data = QUIZ[qIdNum];
+      if (!data) return;
+      const qEl = document.getElementById('qq' + qIdNum);
+      if (!qEl) return;
+      const opts = qEl.querySelectorAll('.quiz-option');
+      const wasCorrect = s.answered[qId];
+      opts.forEach((o, i) => {
+        o.style.pointerEvents = 'none';
+        if (i === data.correct) {
+          o.classList.add(wasCorrect ? 'selected-correct' : 'reveal-correct');
+        }
+      });
+      const fb = document.getElementById('qf' + qIdNum);
+      if (fb) {
+        fb.textContent = (wasCorrect ? '✓ ' : '✗ ') + (wasCorrect ? data.ok : data.no);
+        fb.className = 'quiz-feedback ' + (wasCorrect ? 'correct' : 'wrong');
+      }
+    });
+  }
+
+  // Unlocked steps
+  if (s.unlocked) s.unlocked.forEach(n => unlocked.add(n));
+
+  // Navigate to saved step (after a tick so DOM is ready)
+  const targetStep = s.currentStep || 0;
+  currentStep = 0; // start at 0 so goTo works
+  setTimeout(() => {
+    // Re-run gates to show hidden writing sections
+    Object.keys(GATES).forEach(step => updateGate(parseInt(step)));
+    // Re-run field validators
+    checkStep0Fields(); checkStep1Fields(); checkStep2Fields();
+    updateCriteriaStatus(); checkStep4Fields(); checkStep5Fields();
+    // Navigate
+    if (targetStep > 0) goTo(targetStep);
+    showToast('↩ Progress restored', 'restored');
+  }, 50);
+
+  return true;
+}
+
 // ── Quiz ───────────────────────────────────────────────────────
 function answer(qId, optIdx, isCorrect) {
   if (answered[qId] !== undefined) return;
   answered[qId] = isCorrect;
+  scheduleAutosave();
   const data = QUIZ[qId];
   const qEl = document.getElementById('qq' + qId);
   const opts = qEl.querySelectorAll('.quiz-option');
@@ -837,6 +1041,7 @@ function toggleChip(el) {
   if (el.classList.contains('selected')) selectedChips.add(el.textContent.trim());
   else selectedChips.delete(el.textContent.trim());
   checkStep4Fields();
+  scheduleAutosave();
 }
 
 // ── Field validation per step ──────────────────────────────────
@@ -907,6 +1112,7 @@ const goodKW = ['manage','track','automate','calculate','analyse','analyze','sto
 const measurableKW = ['can','will','allows','enables','within','at least','up to','without','displays','stores','returns','produces','generates','prevents','validates','under','seconds','steps','clicks','error','message','list','report','less than'];
 
 function checkProblem() {
+  scheduleAutosave();
   const val = document.getElementById('problem').value;
   const words = val.trim().split(/\s+/).filter(w => w.length > 0).length;
   const el = document.getElementById('problem-count');
@@ -932,6 +1138,7 @@ function checkProblem() {
 }
 
 function checkSolution() {
+  scheduleAutosave();
   const val = document.getElementById('solution').value;
   const lower = val.toLowerCase();
   const checker = document.getElementById('solution-checker');
@@ -952,6 +1159,7 @@ function checkSolution() {
 }
 
 function checkCriterion(idx, el) {
+  scheduleAutosave();
   const val = el.value.toLowerCase();
   const icon = document.getElementById('cc' + idx);
   if (!val || val.length < 8) { icon.textContent = ''; updateCriteriaStatus(); return; }
@@ -980,6 +1188,7 @@ function updateCriteriaStatus() {
 }
 
 function checkContext() {
+  scheduleAutosave();
   const val = document.getElementById('contextReason').value;
   const lower = val.toLowerCase();
   const checker = document.getElementById('context-checker');
@@ -1115,176 +1324,14 @@ function copyProposal() {
   });
 }
 
-
-// ── Live checkers ──────────────────────────────────────────────
-const templateKW = ['template','wix','wordpress','squarespace','drag.and.drop','no.code','builder','wizard','copied code','northwind'];
-const goodKW = ['manage','track','automate','calculate','analyse','analyze','store','search','generate','process','visualis','visualiz','predict','schedule','record','retrieve','validate','export','import','filter','login','report','notify'];
-const measurableKW = ['can','will','allows','enables','within','at least','up to','without','displays','stores','returns','produces','generates','prevents','validates','under','seconds','steps','clicks','error','message','list','report','less than'];
-
-function checkProblem() {
-  const val = document.getElementById('problem').value;
-  const words = val.trim().split(/\s+/).filter(w => w.length > 0).length;
-  const el = document.getElementById('problem-count');
-  el.textContent = words + ' words · aim for 80–120 for a strong scenario';
-  el.className = 'char-count' + (words > 220 ? ' warn' : '');
-  const lower = val.toLowerCase();
-  const checker = document.getElementById('problem-checker');
-  if (val.length < 25) { checker.className = 'checker-result'; return; }
-  const hasTemplate = templateKW.some(k => lower.includes(k));
-  const hasGood = goodKW.some(k => lower.includes(k));
-  const hasWho = /student|teacher|user|staff|club|school|business|people|class|team|secretary|admin|client|parent|manager/.test(lower);
-  if (hasTemplate) {
-    checker.className = 'checker-result flag show';
-    checker.textContent = '⚠️ Possible issue: description references a template or no-code tool. Your product must involve original code and algorithmic thinking.';
-  } else if (hasGood && hasWho && words >= 50) {
-    checker.className = 'checker-result ok show';
-    checker.textContent = '✓ Good — real situation with identifiable users. Now make sure you include the specific requirements (what the solution needs to achieve).';
-  } else if (!hasWho && words > 20) {
-    checker.className = 'checker-result tip show';
-    checker.textContent = '💡 Who is affected? Name a specific client or user group to ground your problem scenario.';
-  } else { checker.className = 'checker-result'; }
-}
-
-function checkSolution() {
-  const val = document.getElementById('solution').value;
-  const lower = val.toLowerCase();
-  const checker = document.getElementById('solution-checker');
-  if (val.length < 20) { checker.className = 'checker-result'; return; }
-  const hasTemplate = templateKW.some(k => lower.includes(k));
-  const hasCoding = /class|function|algorithm|database|array|loop|method|api|query|oop|sql|object|module|interface|gui|widget/.test(lower);
-  if (hasTemplate) {
-    checker.className = 'checker-result flag show';
-    checker.textContent = '⚠️ Re-read the forbidden list. This sounds like it might use a template or no-code tool.';
-  } else if (hasCoding) {
-    checker.className = 'checker-result ok show';
-    checker.textContent = '✓ Good — computational elements are present. Make sure it connects clearly to your problem scenario.';
-  } else {
-    checker.className = 'checker-result tip show';
-    checker.textContent = '💡 Try naming the computational elements: what data structures, logic, algorithms, or architecture will you use?';
+// ── Restore on load ────────────────────────────────────────────
+(function init() {
+  const saved = getCookie();
+  if (saved) {
+    restoreState(saved);
   }
-}
+})();
 
-function checkCriterion(idx, el) {
-  const val = el.value.toLowerCase();
-  const icon = document.getElementById('cc' + idx);
-  if (!val || val.length < 8) { icon.textContent = ''; updateCriteriaStatus(); return; }
-  const vague = ['easy','good','nice','simple','works','fast','better','friendly','efficient'].some(w => val.includes(w));
-  const hasMeasure = measurableKW.some(w => val.includes(w));
-  if (vague && !hasMeasure) { icon.textContent = '⚠️'; icon.style.color = 'var(--warn)'; }
-  else if (val.length > 25) { icon.textContent = '✓'; icon.style.color = 'var(--good)'; }
-  else { icon.textContent = ''; }
-  updateCriteriaStatus();
-}
-
-function updateCriteriaStatus() {
-  const inputs = document.querySelectorAll('#criteriaList input');
-  const filled = Array.from(inputs).filter(i => i.value.trim().length > 10).length;
-  const status = document.getElementById('criteria-status');
-  const btn = document.getElementById('next-3');
-  if (filled >= 3) {
-    status.textContent = '✓ ' + filled + ' criteria written. Aim for 5–8 for a strong Criterion A.';
-    status.style.color = 'var(--good)';
-    btn.disabled = false;
-  } else {
-    status.textContent = filled + '/3 criteria filled — need at least 3 to continue.';
-    status.style.color = 'var(--muted)';
-    btn.disabled = true;
-  }
-}
-
-function checkContext() {
-  const val = document.getElementById('contextReason').value;
-  const lower = val.toLowerCase();
-  const checker = document.getElementById('context-checker');
-  if (val.length < 25) { checker.className = 'checker-result'; return; }
-  const connects = /because|since|allows|enables|suited|appropriate|requires|need|fits|match|structure|model|entity|data|query|efficient|complex|relationship/.test(lower);
-  const justLang = /know python|easy|familiar|taught|prefer|like python|like java|favourite|quickest/.test(lower);
-  if (justLang) {
-    checker.className = 'checker-result flag show';
-    checker.textContent = '⚠️ This sounds like a language preference. Explain what the computational approach enables that suits your problem\'s specific requirements.';
-  } else if (connects && val.length > 80) {
-    checker.className = 'checker-result ok show';
-    checker.textContent = '✓ Good — you\'re linking the approach to your problem. Make sure you reference your specific requirements explicitly.';
-  } else {
-    checker.className = 'checker-result tip show';
-    checker.textContent = '💡 Try: "I chose X because my problem requires Y, and X enables Z by..." — connect the problem to the capability.';
-  }
-}
-
-// ── Build proposal ─────────────────────────────────────────────
-function getCriteria() {
-  return Array.from(document.querySelectorAll('#criteriaList input')).map(i => i.value.trim()).filter(v => v.length > 0);
-}
-
-function buildProposal() {
-  const problem = document.getElementById('problem').value.trim() || '—';
-  const client = document.getElementById('client').value.trim() || '—';
-  const users = document.getElementById('users').value.trim() || '—';
-  const solution = document.getElementById('solution').value.trim() || '—';
-  const criteria = getCriteria();
-  const chips = Array.from(selectedChips).join(', ') || '—';
-  const ctxReason = document.getElementById('contextReason').value.trim() || '—';
-  const tech = document.getElementById('techStack').value.trim() || '—';
-  const decomp = document.getElementById('decomposition').value.trim() || '—';
-  const timeline = document.getElementById('timeline').value.trim() || '—';
-
-  let score = 0, feedback = [];
-  const words = problem.split(/\s+/).filter(w => w.length > 0).length;
-  if (words >= 80) score += 2; else { score += Math.min(1, words > 25 ? 1 : 0); feedback.push('Expand problem scenario — aim for 80+ words with specific requirements'); }
-  if (client.length > 3) score += 1; else feedback.push('Add a specific client/stakeholder name');
-  const hasTemplate = templateKW.some(k => solution.toLowerCase().includes(k));
-  if (solution.length > 80 && !hasTemplate) score += 2; else { if (solution.length > 30) score += 1; feedback.push(hasTemplate ? '⚠️ Solution may use a forbidden approach — review the not-allowed list' : 'Expand solution description with computational detail'); }
-  if (criteria.length >= 5) score += 2; else { if (criteria.length >= 3) score += 1; feedback.push('Add more success criteria — aim for 5–8 (you have ' + criteria.length + ')'); }
-  if (ctxReason.length > 80 && chips !== '—') score += 2; else { if (ctxReason.length > 30 || chips !== '—') score += 1; feedback.push('Strengthen the computational context explanation — link the approach to your problem\'s requirements'); }
-
-  const maxScore = 9;
-  let label, sub;
-  if (score >= 8) { label = 'Strong proposal!'; sub = 'Ready for your teacher\'s feedback.'; }
-  else if (score >= 5) { label = 'Good start — nearly there'; sub = 'Address the suggestions below before sharing with your teacher.'; }
-  else { label = 'Needs more work'; sub = 'Complete the missing sections before showing this to your teacher.'; }
-
-  document.getElementById('scoreNum').textContent = score + '/' + maxScore;
-  document.getElementById('scoreLabel').textContent = label;
-  document.getElementById('scoreSub').textContent = sub;
-
-  const criteriaHTML = criteria.length
-    ? criteria.map((c,i) => `<div style="display:flex;gap:10px;margin-bottom:7px;"><span style="font-family:DM Mono,monospace;font-size:11px;color:var(--accent);flex-shrink:0;padding-top:1px;">SC${i+1}</span><span>${c}</span></div>`).join('')
-    : '<span style="color:var(--muted)">None entered.</span>';
-
-  const fbHTML = feedback.length
-    ? `<div style="margin-top:20px;padding:18px;background:rgba(255,209,102,0.05);border:1px solid rgba(255,209,102,0.18);border-radius:10px;"><div style="font-family:DM Mono,monospace;font-size:10px;letter-spacing:0.12em;color:var(--accent3);margin-bottom:10px;">SUGGESTIONS BEFORE YOUR TEACHER MEETING</div>${feedback.map(f=>`<div style="font-size:13px;color:#ffe4a0;margin-bottom:7px;line-height:1.55">• ${f}</div>`).join('')}</div>`
-    : '';
-
-  document.getElementById('proposalOutput').innerHTML = `
-    <h3>📄 IA Proposal — Criteria A & B</h3>
-    <div class="proposal-section"><div class="proposal-label">1. Problem Scenario</div><div class="proposal-value">${problem.replace(/\n/g,'<br>')}</div></div>
-    <div class="proposal-section"><div class="proposal-label">2. Client & End Users</div><div class="proposal-value"><strong>Client:</strong> ${client}<br><strong>End users:</strong> ${users}</div></div>
-    <div class="proposal-section"><div class="proposal-label">3. Proposed Solution</div><div class="proposal-value">${solution.replace(/\n/g,'<br>')}</div></div>
-    <div class="proposal-section"><div class="proposal-label">4. Success Criteria</div><div class="proposal-value">${criteriaHTML}</div></div>
-    <div class="proposal-section"><div class="proposal-label">5. Computational Context</div><div class="proposal-value"><strong>Area(s):</strong> ${chips}<br><strong>Technology:</strong> ${tech}<br><br>${ctxReason.replace(/\n/g,'<br>')}</div></div>
-    <div class="proposal-section"><div class="proposal-label">6. Component Decomposition (Crit. B)</div><div class="proposal-value">${decomp.replace(/\n/g,'<br>')}</div></div>
-    <div class="proposal-section"><div class="proposal-label">7. Development Timeline (Crit. B)</div><div class="proposal-value">${timeline.replace(/\n/g,'<br>')}</div></div>
-    ${fbHTML}
-  `;
-  goTo(6);
-}
-
-function copyProposal() {
-  const get = id => document.getElementById(id)?.value?.trim() || '—';
-  const text = `IA PROPOSAL — IB Computer Science\n${'='.repeat(42)}\n\n`
-    + `1. PROBLEM SCENARIO\n${get('problem')}\n\n`
-    + `2. CLIENT & END USERS\nClient: ${get('client')}\nEnd users: ${get('users')}\n\n`
-    + `3. PROPOSED SOLUTION\n${get('solution')}\n\n`
-    + `4. SUCCESS CRITERIA\n${getCriteria().map((c,i)=>`SC${i+1}: ${c}`).join('\n')}\n\n`
-    + `5. COMPUTATIONAL CONTEXT\nArea(s): ${Array.from(selectedChips).join(', ')}\nTechnology: ${get('techStack')}\n\n${get('contextReason')}\n\n`
-    + `6. COMPONENT DECOMPOSITION\n${get('decomposition')}\n\n`
-    + `7. DEVELOPMENT TIMELINE\n${get('timeline')}`;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.querySelector('.copy-btn');
-    btn.textContent = '✓ Copied!';
-    setTimeout(() => btn.textContent = '📋 Copy as plain text', 2200);
-  });
-}
 </script>
 </body>
 </html>
