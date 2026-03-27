@@ -98,6 +98,28 @@ h1 span { color: var(--accent); }
 .rubric-table tr:last-child td { border-bottom: none; }
 .rubric-table .mc { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; white-space: nowrap; color: var(--accent3); width: 70px; }
 
+/* FULL RUBRIC TABLE — used in step 6 */
+.full-rubric-table { width: 100%; border-collapse: collapse; margin: 14px 0 8px; font-size: 14px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.full-rubric-table th { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; padding: 10px 14px; text-align: left; background: rgba(79,255,176,0.06); border-bottom: 1px solid var(--border); }
+.full-rubric-table th.marks-col { width: 80px; text-align: center; }
+.full-rubric-table td { padding: 12px 14px; border-bottom: 1px solid rgba(42,47,66,0.5); vertical-align: top; color: #cdd0de; line-height: 1.6; }
+.full-rubric-table tr:last-child td { border-bottom: none; }
+.full-rubric-table .marks-cell { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 700; text-align: center; white-space: nowrap; width: 80px; }
+.full-rubric-table .marks-0 { color: var(--muted); }
+.full-rubric-table .marks-low { color: #ff9f43; }
+.full-rubric-table .marks-mid { color: var(--accent3); }
+.full-rubric-table .marks-high { color: var(--accent); }
+.full-rubric-table .marks-top { color: #a29bfe; }
+.full-rubric-table tr.top-band { background: rgba(79,255,176,0.03); }
+.full-rubric-table .cmd { font-weight: 600; color: #fff; }
+.rubric-crit-header { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin: 0 0 4px; display: flex; align-items: center; gap: 10px; }
+.rubric-crit-header .crit-badge { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 99px; background: rgba(79,255,176,0.1); border: 1px solid rgba(79,255,176,0.25); color: var(--accent); text-transform: uppercase; }
+.rubric-crit-header .crit-badge.b { background: rgba(255,159,67,0.1); border-color: rgba(255,159,67,0.3); color: #ff9f43; }
+.rubric-crit-header .crit-badge.c { background: rgba(255,209,102,0.1); border-color: rgba(255,209,102,0.3); color: var(--accent3); }
+.rubric-crit-header .crit-badge.d { background: rgba(162,155,254,0.1); border-color: rgba(162,155,254,0.3); color: #a29bfe; }
+.rubric-crit-header .crit-badge.e { background: rgba(255,107,107,0.1); border-color: rgba(255,107,107,0.3); color: var(--accent2); }
+.rubric-note { font-size: 13.5px; color: var(--muted); line-height: 1.65; margin-top: 10px; padding: 10px 14px; background: rgba(255,255,255,0.02); border-radius: 8px; border-left: 2px solid var(--border); }
+
 /* FORBIDDEN BOX */
 .forbidden-box { background: rgba(255,107,107,0.05); border: 1px solid rgba(255,107,107,0.2); border-radius: 12px; padding: 18px 20px; margin: 16px 0; }
 .forbidden-box-header { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--accent2); text-transform: uppercase; margin-bottom: 10px; }
@@ -728,76 +750,165 @@ button { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; pad
   <div class="card">
     <div class="step-num">ASSESSMENT CRITERIA — ALL FIVE CRITERIA</div>
     <h2>The Full Marking Rubric</h2>
-    <p class="card-desc">This is how your examiner will mark your IA. Read every descriptor carefully — then answer the questions below to prove you've understood what's required for top marks.</p>
+    <p class="card-desc">This is exactly how your examiner will mark your IA. Read every band carefully — then answer the questions below. You must select the correct answer to move on.</p>
   </div>
 
+  <!-- CRITERION A -->
   <div class="guide-box">
-    <div class="guide-box-header">Criterion A — Problem Specification (4 marks)</div>
-    <table class="rubric-table">
-      <tr><th>Marks</th><th>The response must…</th></tr>
-      <tr><td class="mc">0</td><td style="color:var(--muted)">Does not reach the standard of the descriptors below.</td></tr>
-      <tr><td class="mc">1–2</td><td><strong>Outlines</strong> a problem scenario · <strong>States</strong> limited success criteria · <strong>Outlines</strong> the nature of the solution in a computational context.</td></tr>
-      <tr><td class="mc">3–4</td><td><strong>Describes</strong> the problem scenario in terms of its <em>measurable solution requirements</em> · <strong>States</strong> appropriate success criteria · <strong>Explains</strong> the choice of computational context for the solution.</td></tr>
+    <div class="rubric-crit-header"><span class="crit-badge">A</span> Problem Specification — 4 marks · ~300 words</div>
+    <table class="full-rubric-table">
+      <tr>
+        <th class="marks-col">Marks</th>
+        <th>The response must…</th>
+      </tr>
+      <tr>
+        <td class="marks-cell marks-0">0</td>
+        <td style="color:var(--muted);font-style:italic;">Does not reach the standard described by the descriptors below.</td>
+      </tr>
+      <tr>
+        <td class="marks-cell marks-low">1–2</td>
+        <td><span class="cmd">Outlines</span> a problem scenario &nbsp;·&nbsp; <span class="cmd">States</span> limited success criteria &nbsp;·&nbsp; <span class="cmd">Outlines</span> the nature of the solution in a computational context.</td>
+      </tr>
+      <tr class="top-band">
+        <td class="marks-cell marks-high">3–4</td>
+        <td><span class="cmd">Describes</span> the problem scenario in terms of its <em>measurable solution requirements</em> &nbsp;·&nbsp; <span class="cmd">States</span> appropriate success criteria &nbsp;·&nbsp; <span class="cmd">Explains</span> the choice of computational context for the solution.</td>
+      </tr>
     </table>
-    <br>
-    <strong>Key definitions:</strong> The <em>problem scenario</em> includes measurable solution requirements. <em>Success criteria</em> are measurable outcomes that indicate the product was successfully developed. The <em>computational context</em> is the specific area of computing selected. Recommended: <em>~300 words.</em>
+    <div class="rubric-note">
+      <strong style="color:#fff">Problem scenario</strong> = clear description including measurable solution requirements — relates to the real world, another field, or a computing issue.<br>
+      <strong style="color:#fff">Success criteria</strong> = measurable outcomes that indicate the product was successfully developed. Used again in B, D and E.<br>
+      <strong style="color:#fff">Computational context</strong> = the specific area of computing selected for the solution.
+    </div>
   </div>
 
+  <!-- CRITERION B -->
   <div class="guide-box">
-    <div class="guide-box-header">Criterion B — Planning (4 marks)</div>
-    <table class="rubric-table">
-      <tr><th>Marks</th><th>The response must…</th></tr>
-      <tr><td class="mc">0</td><td style="color:var(--muted)">Does not reach the standard of the descriptors below.</td></tr>
-      <tr><td class="mc">1–2</td><td><strong>Constructs</strong> a partial decomposition of the problem scenario · <strong>Constructs</strong> a plan that addresses <em>some</em> of the success criteria.</td></tr>
-      <tr><td class="mc">3–4</td><td><strong>Constructs</strong> a reasonable decomposition of the problem scenario · <strong>Constructs</strong> a plan that addresses <em>the</em> success criteria.</td></tr>
+    <div class="rubric-crit-header"><span class="crit-badge b">B</span> Planning — 4 marks · ~150 words</div>
+    <table class="full-rubric-table">
+      <tr>
+        <th class="marks-col">Marks</th>
+        <th>The response must…</th>
+      </tr>
+      <tr>
+        <td class="marks-cell marks-0">0</td>
+        <td style="color:var(--muted);font-style:italic;">Does not reach the standard described by the descriptors below.</td>
+      </tr>
+      <tr>
+        <td class="marks-cell marks-low">1–2</td>
+        <td><span class="cmd">Constructs</span> a partial decomposition of the problem scenario &nbsp;·&nbsp; <span class="cmd">Constructs</span> a plan that addresses <em>some</em> of the success criteria of the solution.</td>
+      </tr>
+      <tr class="top-band">
+        <td class="marks-cell marks-high">3–4</td>
+        <td><span class="cmd">Constructs</span> a reasonable decomposition of the problem scenario &nbsp;·&nbsp; <span class="cmd">Constructs</span> a plan that addresses <em>the</em> success criteria of the solution.</td>
+      </tr>
     </table>
-    <br>
-    <strong>Decomposition</strong> breaks the problem into smaller sub-problems. A <em>reasonable</em> decomposition covers all essential components. Diagrams (e.g. GANTT, AGILE) are explicitly encouraged. Recommended: <em>~150 words.</em>
+    <div class="rubric-note">
+      <strong style="color:#fff">Decomposition</strong> = breaking the problem into smaller, manageable sub-problems. Can be constructed using diagrams.<br>
+      <strong style="color:#fff">Reasonable decomposition</strong> = breaks the problem into essential components that support the construction of a plan.<br>
+      Plan should include a proposed chronology: design → develop → test → evaluate. GANTT and AGILE chart formats are explicitly recommended.
+    </div>
   </div>
 
+  <!-- CRITERION C -->
   <div class="guide-box">
-    <div class="guide-box-header">Criterion C — System Overview (6 marks)</div>
-    <table class="rubric-table">
-      <tr><th>Marks</th><th>The response must…</th></tr>
-      <tr><td class="mc">0</td><td style="color:var(--muted)">Does not reach the standard of the descriptors below.</td></tr>
-      <tr><td class="mc">1–2</td><td><strong>Outlines</strong> a limited system model · <strong>Identifies</strong> algorithms for system components · <strong>Identifies</strong> a testing strategy for at least one success criterion.</td></tr>
-      <tr><td class="mc">3–4</td><td><strong>Constructs</strong> a system model that is not complete · <strong>Constructs</strong> algorithms that lead to <em>partial</em> functionality · <strong>Outlines</strong> a testing strategy aligned with at least three success criteria.</td></tr>
-      <tr><td class="mc">5–6</td><td><strong>Constructs</strong> a <em>complete</em> system model · <strong>Constructs</strong> algorithms that <em>enable the product to perform</em> · <strong>Describes</strong> a testing strategy that aligns with the success criteria.</td></tr>
+    <div class="rubric-crit-header"><span class="crit-badge c">C</span> System Overview — 6 marks · ~150 words</div>
+    <table class="full-rubric-table">
+      <tr>
+        <th class="marks-col">Marks</th>
+        <th>The response must…</th>
+      </tr>
+      <tr>
+        <td class="marks-cell marks-0">0</td>
+        <td style="color:var(--muted);font-style:italic;">Does not reach the standard described by the descriptors below.</td>
+      </tr>
+      <tr>
+        <td class="marks-cell marks-low">1–2</td>
+        <td><span class="cmd">Outlines</span> a limited system model &nbsp;·&nbsp; <span class="cmd">Identifies</span> algorithms for the components &nbsp;·&nbsp; <span class="cmd">Identifies</span> a testing strategy for at least <em>one</em> success criterion.</td>
+      </tr>
+      <tr>
+        <td class="marks-cell marks-mid">3–4</td>
+        <td><span class="cmd">Constructs</span> a system model that is not complete &nbsp;·&nbsp; <span class="cmd">Constructs</span> algorithms that lead to <em>partial functionality</em> &nbsp;·&nbsp; <span class="cmd">Outlines</span> a testing strategy aligned with at least <em>three</em> success criteria.</td>
+      </tr>
+      <tr class="top-band">
+        <td class="marks-cell marks-high">5–6</td>
+        <td><span class="cmd">Constructs</span> a <em>complete</em> system model &nbsp;·&nbsp; <span class="cmd">Constructs</span> algorithms that <em>enable the product to perform</em> &nbsp;·&nbsp; <span class="cmd">Describes</span> a testing strategy that aligns with the success criteria.</td>
+      </tr>
     </table>
-    <br>
-    A <strong>system model</strong> = diagrams showing components and connections, including UI design. A <strong>complete</strong> system model does not need to include the algorithms themselves. <strong>Algorithms</strong> can be natural language, flowcharts, or pseudocode. The <strong>testing strategy</strong> should evaluate correctness and handle unexpected inputs — a table with test data and expected outcomes works well. Recommended: <em>~150 words.</em>
+    <div class="rubric-note">
+      <strong style="color:#fff">System model</strong> = diagrams showing components, their connections, and the UI design. A <em>complete</em> system model does NOT need to include the algorithms — those are assessed separately.<br>
+      <strong style="color:#fff">Algorithms</strong> = natural language, flowcharts, or pseudocode — one per component.<br>
+      <strong style="color:#fff">Testing strategy</strong> = systematic approach to verify the solution works. A table with test data and expected outcomes is effective.
+    </div>
   </div>
 
+  <!-- CRITERION D -->
   <div class="guide-box">
-    <div class="guide-box-header">Criterion D — Development (12 marks) — The biggest criterion</div>
-    <table class="rubric-table">
-      <tr><th>Marks</th><th>The response must…</th></tr>
-      <tr><td class="mc">0</td><td style="color:var(--muted)">Does not reach the standard of the descriptors below.</td></tr>
-      <tr><td class="mc">1–3</td><td><strong>Constructs</strong> a product with very limited functionality · Uses <em>no</em> appropriate techniques · <strong>States</strong> choices made to implement algorithms · <strong>States</strong> the testing strategy used.</td></tr>
-      <tr><td class="mc">4–6</td><td><strong>Constructs</strong> a product with limited functionality · Uses <em>at least one</em> appropriate technique · <strong>Outlines</strong> choices made · <strong>States</strong> the effectiveness of the testing strategy.</td></tr>
-      <tr><td class="mc">7–9</td><td><strong>Constructs</strong> a product with partial functionality · Uses <em>some</em> appropriate techniques · <strong>Explains</strong> choices made · <strong>Describes</strong> the effectiveness of the testing strategy.</td></tr>
-      <tr><td class="mc">10–12</td><td><strong>Constructs</strong> a <em>fully functional</em> product · Uses <em>appropriate</em> techniques · <strong>Evaluates</strong> choices made · <strong>Justifies</strong> the effectiveness of the testing strategy.</td></tr>
+    <div class="rubric-crit-header"><span class="crit-badge d">D</span> Development — 12 marks · ~1,000 words &nbsp;<span style="font-size:12px;color:#a29bfe;font-family:'DM Mono',monospace;">(highest weighted)</span></div>
+    <table class="full-rubric-table">
+      <tr>
+        <th class="marks-col">Marks</th>
+        <th>The response must…</th>
+      </tr>
+      <tr>
+        <td class="marks-cell marks-0">0</td>
+        <td style="color:var(--muted);font-style:italic;">Does not reach the standard described by the descriptors below.</td>
+      </tr>
+      <tr>
+        <td class="marks-cell marks-low">1–3</td>
+        <td><span class="cmd">Constructs</span> a product with <em>very limited</em> functionality &nbsp;·&nbsp; Uses <em>no</em> appropriate techniques &nbsp;·&nbsp; <span class="cmd">States</span> the choices made to implement the algorithms &nbsp;·&nbsp; <span class="cmd">States</span> the testing strategy used.</td>
+      </tr>
+      <tr>
+        <td class="marks-cell marks-low" style="color:#ffb347">4–6</td>
+        <td><span class="cmd">Constructs</span> a product with <em>limited</em> functionality &nbsp;·&nbsp; Uses <em>at least one</em> appropriate technique &nbsp;·&nbsp; <span class="cmd">Outlines</span> the choices made &nbsp;·&nbsp; <span class="cmd">States</span> the effectiveness of the testing strategy.</td>
+      </tr>
+      <tr>
+        <td class="marks-cell marks-mid">7–9</td>
+        <td><span class="cmd">Constructs</span> a product with <em>partial</em> functionality &nbsp;·&nbsp; Uses <em>some</em> appropriate techniques &nbsp;·&nbsp; <span class="cmd">Explains</span> the choices made &nbsp;·&nbsp; <span class="cmd">Describes</span> the effectiveness of the testing strategy.</td>
+      </tr>
+      <tr class="top-band">
+        <td class="marks-cell marks-top">10–12</td>
+        <td><span class="cmd">Constructs</span> a <em>fully functional</em> product &nbsp;·&nbsp; Uses <em>appropriate</em> techniques &nbsp;·&nbsp; <span class="cmd">Evaluates</span> the choices made to implement the algorithms &nbsp;·&nbsp; <span class="cmd">Justifies</span> the effectiveness of the testing strategy.</td>
+      </tr>
     </table>
-    <br>
-    Techniques include loops, data structures, libraries, software tool integration. Code excerpts in the documentation must include relevant comments and be referenced to the appendix. Without the appendix (full source code), you cannot get full marks. The <strong>video</strong> must demonstrate functionality and testing examples. Recommended: <em>~1,000 words.</em>
+    <div class="rubric-note">
+      Techniques include: loops, data structures, existing libraries, integration of software tools.<br>
+      Code in the documentation must include <strong style="color:#fff">relevant comments</strong>, be consistent and readable, and be <strong style="color:#fff">referenced to the full source code in the appendix</strong>.<br>
+      <strong style="color:#fff">Without the appendix</strong> (full source code), you <em>cannot be awarded full marks</em> for techniques in Criterion D.<br>
+      The <strong style="color:#fff">video</strong> must show the product working and give examples of the testing strategy in action.
+    </div>
   </div>
 
+  <!-- CRITERION E -->
   <div class="guide-box">
-    <div class="guide-box-header">Criterion E — Evaluation (4 marks)</div>
-    <table class="rubric-table">
-      <tr><th>Marks</th><th>The response must…</th></tr>
-      <tr><td class="mc">0</td><td style="color:var(--muted)">Does not reach the standard of the descriptors below.</td></tr>
-      <tr><td class="mc">1–2</td><td><strong>States</strong> the extent to which the success criteria were met · <strong>Describes</strong> improvements to the product.</td></tr>
-      <tr><td class="mc">3–4</td><td><strong>Evaluates</strong> the extent to which the success criteria were met · <strong>Justifies</strong> improvements to the product.</td></tr>
+    <div class="rubric-crit-header"><span class="crit-badge e">E</span> Evaluation — 4 marks · ~400 words</div>
+    <table class="full-rubric-table">
+      <tr>
+        <th class="marks-col">Marks</th>
+        <th>The response must…</th>
+      </tr>
+      <tr>
+        <td class="marks-cell marks-0">0</td>
+        <td style="color:var(--muted);font-style:italic;">Does not reach the standard described by the descriptors below.</td>
+      </tr>
+      <tr>
+        <td class="marks-cell marks-low">1–2</td>
+        <td><span class="cmd">States</span> the extent to which the success criteria were met &nbsp;·&nbsp; <span class="cmd">Describes</span> improvements to the product.</td>
+      </tr>
+      <tr class="top-band">
+        <td class="marks-cell marks-high">3–4</td>
+        <td><span class="cmd">Evaluates</span> the extent to which the success criteria were met &nbsp;·&nbsp; <span class="cmd">Justifies</span> improvements to the product.</td>
+      </tr>
     </table>
-    <br>
-    Evaluation must trace back directly to the success criteria you wrote in Criterion A. For top marks you must go beyond "it works" — analyse <em>why</em> and <em>how well</em>, and justify proposed improvements with specific reasoning. Recommended: <em>~400 words.</em>
+    <div class="rubric-note">
+      Evaluation must trace directly back to the success criteria you defined in Criterion A.<br>
+      For 3–4 marks, go beyond "it works" — analyse <em>how well</em> and <em>why</em>, with evidence. Justify improvements with specific reasoning, not just a wish list.
+    </div>
   </div>
 
   <div class="section-divider">Check your understanding of the rubric</div>
 
   <div class="quiz-section">
-    <div class="quiz-section-header">5 questions — answer all to unlock your final review</div>
+    <div class="quiz-section-header">5 questions — you must get each one right to unlock your final review</div>
 
     <div class="quiz-q" id="qq60">
       <div class="quiz-q-text">1. To reach 3–4 marks in Criterion A, your problem scenario must describe the problem in terms of its…</div>
@@ -857,7 +968,7 @@ button { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; pad
     <div class="quiz-score-bar" id="qs6"></div>
   </div>
 
-  <div class="gate-notice show" id="gate-6">Answer all five questions above to unlock your final proposal review.</div>
+  <div class="gate-notice show" id="gate-6">Answer all five questions correctly above to unlock your final proposal review.</div>
 
   <div class="btn-row">
     <button class="btn-secondary" onclick="goTo(5)">← Back</button>
@@ -1098,29 +1209,44 @@ function restoreState(raw) {
 
 // ── Quiz ───────────────────────────────────────────────────────
 function answer(qId, optIdx, isCorrect) {
-  if (answered[qId] !== undefined) return;
-  answered[qId] = isCorrect;
+  if (answered[qId] === true) return; // already correctly answered, lock it
   scheduleAutosave();
   const data = QUIZ[qId];
   const qEl = document.getElementById('qq' + qId);
   const opts = qEl.querySelectorAll('.quiz-option');
-  opts.forEach((o,i) => {
-    o.style.pointerEvents = 'none';
-    if (i === data.correct) o.classList.add('reveal-correct');
-  });
-  opts[optIdx].classList.remove('reveal-correct');
-  opts[optIdx].classList.add(isCorrect ? 'selected-correct' : 'selected-wrong');
   const fb = document.getElementById('qf' + qId);
-  fb.textContent = (isCorrect ? '✓ ' : '✗ ') + (isCorrect ? data.ok : data.no);
-  fb.className = 'quiz-feedback ' + (isCorrect ? 'correct' : 'wrong');
-  updateGate(currentStep);
+
+  if (isCorrect) {
+    // Lock all options, mark correct
+    answered[qId] = true;
+    opts.forEach(o => o.style.pointerEvents = 'none');
+    opts[optIdx].classList.remove('selected-wrong');
+    opts[optIdx].classList.add('selected-correct');
+    fb.textContent = '✓ ' + data.ok;
+    fb.className = 'quiz-feedback correct';
+    updateGate(currentStep);
+  } else {
+    // Wrong — mark this option red but keep others clickable
+    // Remove previous wrong selection styling first
+    opts.forEach(o => {
+      if (!o.classList.contains('selected-correct')) {
+        o.classList.remove('selected-wrong');
+        o.style.pointerEvents = '';
+      }
+    });
+    opts[optIdx].classList.add('selected-wrong');
+    opts[optIdx].style.pointerEvents = 'none'; // disable just this wrong option
+    fb.textContent = '✗ Not quite — re-read the guide above and try again.';
+    fb.className = 'quiz-feedback wrong';
+    // don't call updateGate — not answered yet
+  }
 }
 
 function updateGate(step) {
   const gate = GATES[step];
   if (!gate) return;
-  const allDone = gate.every(q => answered[q] !== undefined);
-  const score = gate.filter(q => answered[q]).length;
+  const allDone = gate.every(q => answered[q] === true);
+  const score = gate.filter(q => answered[q] === true).length;
   const bar = document.getElementById('qs' + step);
   if (allDone && bar) {
     const msgs = ['Study the guide again — a few things to review before writing.','Good — keep those points in mind as you write.','Perfect!','Perfect!','Perfect!','Perfect!','Perfect!'];
